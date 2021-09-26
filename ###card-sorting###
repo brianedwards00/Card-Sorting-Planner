@@ -1,0 +1,68 @@
+(defun generate-children (mom)
+;;TODO: Case for empty lists (when its empty prior or after this function)
+(setq value1 (nth 0 mom))
+(setq value2 (nth 1 mom))
+(setq value3 (nth 2 mom))
+(setq child '())
+(setq children '())
+(if (string>  (car value1) (car value2))
+    (progn
+	(push value3 child)
+	(push (append (list(car value1)) value2) child)
+	(push (cdr value1) child)
+	(push child children)
+	)
+     (push value3 child)
+     (push (cdr value2) child)
+     (push (append (list(car value2)) value1) child)
+     (push child children)
+    )
+(setq child '())
+(if (string> (car value1) (car value3))
+    (progn
+	(push (append (list(car value1)) value3) child)
+	(push value2 child)
+	(push (cdr value1) child)
+	(push child children)
+	)
+    (push (cdr value3) child)
+    (push value2 child)
+    (push (append (list(car value3)) value1) child)
+    (push child children)
+    )
+(setq child '())
+(if (string> (car value2) (car value3))
+    (progn
+	(push (append (list(car value2)) value3) child)
+	(push (cdr value2) child)
+	(push value1 child)
+	(push child children)
+	)
+    (push (cdr value3) child)
+    (push (append (list(car value3)) value2) child)
+    (push value1 child)
+    (push child children)
+    )
+children
+)
+;;1
+
+
+(defun card-sorting-planner (card-count start-state goal-state)
+(setq open '())
+(push start-state open)
+(setq closed '())
+;;TODO: Change to While Loop
+(dotimes(number 1) open
+       (setq x (car open))
+       (if(equal x goal-state) x
+       		 (setq children (generate-children x))
+		 children
+		 ;;4
+		 )
+       )
+)
+;;2
+
+(card-sorting-planner 5 '((C A)(E B)(D)) '((E D C B A)()()))
+;;3
