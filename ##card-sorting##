@@ -1,0 +1,65 @@
+(defun generate-children (mom)
+;;TODO: Case for empty lists
+(setq value1 (symbol-name(car(nth 0 mom))))
+(setq value2 (symbol-name(car(nth 1 mom))))
+(setq value3 (symbol-name(car(nth 2 mom))))
+(setq child '())
+(setq children '())
+(if (string> (substring value1 0 1) (substring value2 0 1))
+    (progn
+	(push (list (intern value3)) child)
+	(push (list (intern (concat (substring value1 0 1) value2 ))) child)
+	(push (list (intern (substring value1 1 nil))) child)
+	(push child children)
+	)
+     (push (list (intern value3)) child)
+     (push (list (intern (substring value2 1 nil))) child)
+     (push (list (intern (concat (substring value2 0 1) value1 ))) child)
+     (push child children)
+    )
+(setq child '())
+(if (string> (substring value1 0 1) (substring value3 0 1))
+    (progn
+	(push (list (intern (concat (substring value1 0 1) value3))) child)
+	(push (list (intern value2)) child)
+	(push (list (intern (substring value1 1 nil))) child)
+	(push child children)
+	)
+    (push (list (intern (substring value3 1 nil))) child)
+    (push (list (intern value2)) child)
+    (push (list (intern (concat (substring value3 0 1) value1 ))) child)
+    (push child children)
+    )
+(setq child '())
+(if (string> (substring value2 0 1) (substring value3 0 1))
+    (progn
+	(push (list (intern (concat (substring value2 0 1) value3))) child)
+	(push (list (intern (substring value2 1 nil))) child)
+	(push (list (intern value1)) child)
+	(push child children)
+	)
+    (push (list (intern (substring value3 1 nil))) child)
+    (push (list (intern (concat (substring value3 0 1) value2 ))) child)
+    (push (list (intern value1)) child)
+    (push child children)
+    )
+children
+)
+;;1
+
+(defun card-sorting-planner (card-count start-state goal-state)
+;;TODO: Add a variable open = start-state
+(setq open '(((GA)(EB)(D))))
+(setq closed '())
+(while open
+       (setq x (pop open))
+       (if(equal x open) x
+       		 (generate-children x) 
+		 ;;4
+		 )
+       )
+)
+;;2
+
+(card-sorting-planner 5 '((CA)(EB)(D)) '((EDCBA)()()))
+;;3
